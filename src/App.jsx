@@ -1,24 +1,26 @@
-import { OrbitControls } from "@react-three/drei";
+import { Environment, OrbitControls } from "@react-three/drei";
 import { Canvas } from '@react-three/fiber'
+import Bubbles from "./Bubbles";
+import { EffectComposer, N8AO, TiltShift2 } from "@react-three/postprocessing";
+import { useControls } from "leva";
 
 export default function App() {
-    return <>
-        <Canvas
-            shadows
-            camera={{
-                fov: 45,
-                near: 0.1,
-                far: 200,
-                position: [4, 2, 6]
-            }}>
+    const { blur } = useControls({
+        blur: { value: 0.1, min: 0, max: 1 }
+    })
 
-            <OrbitControls makeDefault />
-
-            <mesh>
-                <torusGeometry />
-                <meshStandardMaterial />
-            </mesh>
-
+    return (
+        <Canvas shadows dpr={[1, 2]} gl={{ antialias: false }} camera={{ fov: 50, position: [0, 0, 20] }}>
+            <color attach="background" args={['#f0f0f0']} />
+            <fog attach="fog" args={['red', 20, -5]} />
+            <ambientLight intensity={1.5} />
+            <pointLight position={[10, 10, 10]} intensity={1} castShadow />
+            <Bubbles />
+            <EffectComposer disableNormalPass>
+                <N8AO aoRadius={6} intensity={2} color="red" />
+                <TiltShift2 blur={blur} />
+            </EffectComposer>
+            <Environment preset="city" />
         </Canvas>
-    </>
+    )
 }
