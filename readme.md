@@ -1,14 +1,8 @@
-## Setup
-Download [Node.js](https://nodejs.org/en/download/).
-Run this followed commands:
+## Features
+1. Declarative instances
+2. Fog
+3. TiltShfit
 
-``` bash
-# Install dependencies (only the first time)
-npm install
+<img src='Screenshot.png' width="480px">
 
-# Run the local server at localhost:8080
-npm run dev
-
-# Build for production in the dist/ directory
-npm run build
-```
+[**Live Demo**](https://momentchan.github.io/r3f-bubbles/)
